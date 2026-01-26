@@ -9,6 +9,8 @@ class Customer extends Model
 {
     use HasRoles;
 
+    protected $guard_name = 'customer';
+
     protected $fillable = [
         'tariff_id',
         'name',
@@ -40,6 +42,6 @@ class Customer extends Model
 
     public function customerUsages()
     {
-        return $this->hasMany(CustomerUsage::class, 'customer_id'); 
+        return $this->hasMany(CustomerUsage::class, 'customer_id');
     }
 }
