@@ -11,16 +11,23 @@ class CustomerInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('tariff_id')
-                    ->numeric(),
-                TextEntry::make('name'),
-                TextEntry::make('username'),
+                TextEntry::make('customerTariff.power')
+                    ->numeric()
+                    ->badge()
+                    ->icon('heroicon-o-bolt'),
+                TextEntry::make('name')
+                    ->label('Nama Pelanggan'),
+                TextEntry::make('username')
+                    ->label('Username'),
                 TextEntry::make('address')
+                    ->label('Alamat')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
+                    ->label('Ditambahkan Pada')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbahrui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

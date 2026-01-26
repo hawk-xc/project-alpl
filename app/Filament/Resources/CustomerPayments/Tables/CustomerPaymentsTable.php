@@ -16,29 +16,36 @@ class CustomerPaymentsTable
         return $table
             ->columns([
                 TextColumn::make('transaction_id')
+                    ->label('Invoice Transaksi')
                     ->searchable(),
-                TextColumn::make('customer_id')
-                    ->numeric()
+                TextColumn::make('customerBill.bill_id')
+                    ->searchable()
+                    ->label('Nama Tagihan')
                     ->sortable(),
-                TextColumn::make('customer_bill_id')
-                    ->numeric()
+                TextColumn::make('customer.name')
+                    ->label('Nama Pelanggan')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('payment_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('month_paid')
-                    ->searchable(),
                 TextColumn::make('admin_fee')
                     ->numeric()
+                    ->prefix('Rp. ')
+                    ->label('Biaya Admin')
                     ->sortable(),
                 TextColumn::make('total_amount')
                     ->numeric()
+                    ->label('Total')
+                    ->prefix('Rp. ')
                     ->sortable(),
+                TextColumn::make('customerBill.status')
+                    ->badge()
+                    ->label('Status Pembayaran'),
                 TextColumn::make('created_at')
                     ->dateTime()
+                    ->label('Ditambahkan Pada')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -12,21 +12,30 @@ class CustomerBillInfolist
         return $schema
             ->components([
                 TextEntry::make('bill_id'),
-                TextEntry::make('customer_id')
+                TextEntry::make('customer.name')
+                    ->label('Pelanggan')
+                    ->icon('heroicon-o-user')
                     ->numeric(),
-                TextEntry::make('customer_usage_id')
+                TextEntry::make('customerUsage.id')
+                    ->label('ID Penggunaan')
+                    ->icon('heroicon-o-document-text')
                     ->numeric(),
-                TextEntry::make('month'),
+                TextEntry::make('month')
+                ->label('Bulan Pembayaran'),
                 TextEntry::make('year')
-                    ->numeric(),
+                    ->label('Tahun Pembayaran'),
                 TextEntry::make('total_meter')
+                ->label('Total Meter')
                     ->numeric(),
                 TextEntry::make('status')
+                    ->label('Status Tagihan')
                     ->badge(),
                 TextEntry::make('created_at')
+                    ->label('Ditambahkan Pada')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

@@ -11,19 +11,25 @@ class CustomerUsageInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('customer_id')
-                    ->numeric(),
-                TextEntry::make('month'),
+                TextEntry::make('customer.name')
+                    ->icon('heroicon-o-user')
+                    ->label('Pelanggan'),
+                TextEntry::make('month')
+                ->icon('heroicon-o-calendar')
+                ->label('Bulan'),
                 TextEntry::make('year')
-                    ->numeric(),
+                ->icon('heroicon-o-calendar')
+                ->label('Tahun'),
                 TextEntry::make('start_meter')
-                    ->numeric(),
+                ->label('Meter Awal'),
                 TextEntry::make('end_meter')
-                    ->numeric(),
+                ->label('Meter Akhir'),
                 TextEntry::make('created_at')
+                    ->label('Ditambahkan Pada')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

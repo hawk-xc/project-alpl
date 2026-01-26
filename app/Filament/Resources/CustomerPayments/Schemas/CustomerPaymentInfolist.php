@@ -11,22 +11,32 @@ class CustomerPaymentInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('transaction_id'),
-                TextEntry::make('customer_id')
-                    ->numeric(),
-                TextEntry::make('customer_bill_id')
+                TextEntry::make('transaction_id')
+                    ->label('ID Invoice'),
+                TextEntry::make('customer.name')
+                    ->label('Nama Pelanggan'),
+                TextEntry::make('customerBill.bill_id')
+                    ->label('ID Tagihan')
                     ->numeric(),
                 TextEntry::make('payment_at')
+                    ->label('Tanggal Dibayar')
                     ->dateTime(),
-                TextEntry::make('month_paid'),
+                TextEntry::make('month_paid')
+                    ->label('Bulan Dibayar'),
                 TextEntry::make('admin_fee')
+                    ->label('Biaya Admin')
+                    ->prefix('Rp. ')
                     ->numeric(),
                 TextEntry::make('total_amount')
+                    ->label('Total Dibayar')
+                    ->prefix('Rp. ')
                     ->numeric(),
                 TextEntry::make('created_at')
+                    ->label('Ditambahkan Pada')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

@@ -16,9 +16,22 @@ class CustomerTariffsTable
             ->columns([
                 TextColumn::make('power')
                     ->numeric()
+                    ->label('Daya')
+                    ->searchable()
+                    ->badge()
+                    ->icon('heroicon-o-bolt')
                     ->sortable(),
                 TextColumn::make('price_in_kwh')
                     ->numeric()
+                    ->label('Harga Daya/kWh')
+                    ->prefix('Rp. ')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('customer_counts')
+                    ->label('Pengguna Tarif')
+                    ->numeric()
+                    ->badge()
+                    ->icon('heroicon-o-user')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

@@ -15,25 +15,33 @@ class CustomerUsagesTable
     {
         return $table
             ->columns([
-                TextColumn::make('customer_id')
-                    ->numeric()
+                TextColumn::make('customer.name')
+                    ->label('Nama Pelanggan')
+                    ->badge()
+                    ->icon('heroicon-o-user')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('month')
+                    ->label('Bulan')
                     ->searchable(),
                 TextColumn::make('year')
-                    ->numeric()
+                    ->label('Tahun')
                     ->sortable(),
                 TextColumn::make('start_meter')
                     ->numeric()
+                    ->label('Meter Awal')
                     ->sortable(),
                 TextColumn::make('end_meter')
                     ->numeric()
+                    ->label('Meter Akhir')
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

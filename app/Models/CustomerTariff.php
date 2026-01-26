@@ -8,13 +8,15 @@ class CustomerTariff extends Model
 {
     protected $table = 'customer_tariffs';
 
-    protected $fillable = [
-        'power',
-        'power_in_kwh',
-    ];
+    protected $fillable = ['power', 'power_in_kwh'];
 
     public function customer()
     {
         return $this->hasMany(Customer::class, 'tariff_id');
+    }
+
+    public function getCustomerCountsAttribute()
+    {
+        return $this->customer()->count();
     }
 }
