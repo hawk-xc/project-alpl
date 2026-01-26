@@ -64,8 +64,22 @@ class PermissionSeeder extends Seeder
             'customer_usages:detail',
         ];
 
+        $customerPermissions = [
+            'customer_usages:list',
+            'customer_payment:list',
+            'customer_tariff:detail',
+            'customer:detail'
+        ];
+
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
+        }
+
+        foreach ($customerPermissions as $permission) {
+            Permission::firstOrCreate([
+                'name' => $permission,
+                'guard_name' => 'customer',
+            ]);
         }
     }
 }

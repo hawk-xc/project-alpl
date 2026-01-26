@@ -22,15 +22,12 @@ return new class extends Migration
                 DECLARE v_bill_code VARCHAR(20);
 
                 -- hitung pemakaian
-                SET v_total_meter = NEW.end_meter - NEW.start_meter;
+                IF NEW.end_meter < NEW.start_meter THEN
+                    SIGNAL SQLSTATE '45000'
+                    SET MESSAGE_TEXT = 'Meter akhir tidak boleh lebih kecil dari meter awal';
+                END IF;
 
-                -- ambil tarif per kwh
-                SELECT ct.price_in_kwh
-                INTO v_price_per_kwh
-                FROM customers c
-                JOIN customer_tariffs ct ON ct.id = c.tariff_id
-                WHERE c.id = NEW.customer_id
-                LIMIT 1;
+                SET v_total_meter = NEW.end_meter - NEW.start_meter;
 
                 -- generate bill id
                 SET v_bill_code = CONCAT(
@@ -55,7 +52,7 @@ return new class extends Migration
                     NEW.id,
                     NEW.month,
                     NEW.year,
-                    v_total_meter * v_price_per_kwh,
+                    v_total_meter,
                     'pending',
                     NOW(),
                     NOW()
