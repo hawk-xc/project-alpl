@@ -15,4 +15,9 @@ class CreateCustomer extends CreateRecord
 
         return $data;
     }
+
+    protected function afterCreate(): void
+    {
+        $this->record->assignRole('customer');
+    }
 }

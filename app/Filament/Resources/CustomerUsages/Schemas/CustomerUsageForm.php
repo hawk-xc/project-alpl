@@ -6,6 +6,7 @@ use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 
 class CustomerUsageForm
 {
@@ -13,8 +14,8 @@ class CustomerUsageForm
     {
         return $schema->components([
             Select::make('customer_id')
-            ->columnSpanFull()
-            ->prefixIcon('heroicon-o-user')->relationship('customer', 'name')->native(false)->required(),
+                ->columnSpanFull()
+                ->prefixIcon('heroicon-o-user')->relationship('customer', 'name')->native(false)->required(),
             Section::make('Informasi Penggunaan')->schema([
                 Select::make('month')
                     ->prefixIcon('heroicon-o-calendar')
@@ -38,9 +39,13 @@ class CustomerUsageForm
                     ->required(),
                 TextInput::make('year')->label('Tahun')->placeholder('Tahun')->required()->numeric()->default(date('Y'))->readOnly(),
             ])
-            ->columnSpanFull(),
-            Section::make('Informasi Penggunaan Daya')->schema([TextInput::make('start_meter')->label('Meter Awal')->placeholder('Meter Awal')->required()->numeric(), TextInput::make('end_meter')->label('Meter Akhir')->placeholder('Meter Akhir')->required()->numeric()])
-            ->columnSpanFull(),
+                ->columnSpanFull(),
+            Section::make('Informasi Penggunaan Daya')->schema([
+                TextInput::make('start_meter')->label('Meter Awal')->placeholder('Meter Awal')->required()->numeric(),
+                TextInput::make('end_meter')->label('Meter Akhir')->placeholder('Meter Akhir')->required()->numeric()
+                    ->minValue(fn(Get $get) => $get('start_meter'))
+            ])
+                ->columnSpanFull(),
         ]);
     }
 }

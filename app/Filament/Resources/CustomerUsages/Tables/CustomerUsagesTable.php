@@ -30,10 +30,16 @@ class CustomerUsagesTable
                 TextColumn::make('start_meter')
                     ->numeric()
                     ->label('Meter Awal')
+                    ->badge()
+                    ->icon('heroicon-o-bolt')
+                    ->suffix(' kWh')
                     ->sortable(),
                 TextColumn::make('end_meter')
                     ->numeric()
                     ->label('Meter Akhir')
+                    ->badge()
+                    ->icon('heroicon-o-bolt')
+                    ->suffix(' kWh')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')

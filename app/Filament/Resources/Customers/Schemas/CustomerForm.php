@@ -14,7 +14,12 @@ class CustomerForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Select::make('tariff_id')->relationship(name: 'customerTariff', titleAttribute: 'power')->native(false)->placeholder('Pilih Tarif')->required(),
+            Select::make('tariff_id')
+                ->label('Tarif')
+                ->relationship(name: 'customerTariff', titleAttribute: 'power')
+                ->native(false)
+                ->placeholder('Pilih Tarif')
+                ->required(),
             TextInput::make('name')->label('Nama Pengguna')->placeholder('Nama Pengguna')->required(),
             TextInput::make('username')->label('Username')->placeholder('Username')->unique(table: 'customers', column: 'username')->required(),
             TextInput::make('password')

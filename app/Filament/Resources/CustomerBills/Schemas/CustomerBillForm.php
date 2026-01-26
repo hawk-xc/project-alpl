@@ -26,7 +26,7 @@ class CustomerBillForm
                 ->label('ID Penggunaan')
                 ->native(false)
                 ->required(),
-                Select::make('month')
+            Select::make('month')
                 ->options([
                     'January' => 'January',
                     'February' => 'February',
@@ -55,6 +55,7 @@ class CustomerBillForm
             TextInput::make('total_meter')
                 ->label('Total Meter')
                 ->placeholder('Total Meter')
+                ->readOnly()
                 ->required()
                 ->numeric(),
             Select::make('status')

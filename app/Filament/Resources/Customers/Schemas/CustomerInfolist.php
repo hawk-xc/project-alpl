@@ -19,6 +19,10 @@ class CustomerInfolist
                     ->label('Nama Pelanggan'),
                 TextEntry::make('username')
                     ->label('Username'),
+                TextEntry::make('roles.name')
+                    ->label('Role')
+                    ->icon('heroicon-o-tag')
+                    ->badge(),
                 TextEntry::make('address')
                     ->label('Alamat')
                     ->columnSpanFull(),

@@ -11,16 +11,19 @@ class UserInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
+                TextEntry::make('name')
+                    ->label('Nama Pengguna'),
+                TextEntry::make('roles.name')
+                    ->label('Role Pengguna')
+                    ->badge(),
                 TextEntry::make('email')
-                    ->label('Email address'),
-                TextEntry::make('email_verified_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                    ->label('Email Pengguna'),
                 TextEntry::make('created_at')
                     ->dateTime()
+                    ->label('Ditambahkan Pada')
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbahrui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

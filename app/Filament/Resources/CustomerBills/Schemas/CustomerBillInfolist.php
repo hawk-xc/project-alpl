@@ -21,11 +21,11 @@ class CustomerBillInfolist
                     ->icon('heroicon-o-document-text')
                     ->numeric(),
                 TextEntry::make('month')
-                ->label('Bulan Pembayaran'),
+                    ->label('Bulan Pembayaran'),
                 TextEntry::make('year')
                     ->label('Tahun Pembayaran'),
                 TextEntry::make('total_meter')
-                ->label('Total Meter')
+                    ->label('Pemakaian Meter')
                     ->numeric(),
                 TextEntry::make('status')
                     ->label('Status Tagihan')

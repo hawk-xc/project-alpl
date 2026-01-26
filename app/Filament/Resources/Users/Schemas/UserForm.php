@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Str;
+use Filament\Actions\Action;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 
 class UserForm
 {
@@ -13,15 +15,35 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama Pengguna')
+                    ->placeholder('Nama Pengguna')
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Alamat Email')
+                    ->placeholder('Alamat Email')
                     ->email()
                     ->required(),
-                DateTimePicker::make('email_verified_at'),
-                TextInput::make('password')
-                    ->password()
+                Select::make('roles.name')
+                    ->label('Role Pengguna')
+                    ->native(false)
+                    ->relationship('roles', 'name')
                     ->required(),
+                TextInput::make('password')
+                    ->minLength(8)
+                    ->maxLength(255)
+                    ->label('Kata Sandi')
+                    ->placeholder('Kata Sandi')
+                    ->password()
+                    ->required()
+                    ->revealable()
+                    ->prefixAction(
+                        Action::make('generatePassword')
+                            ->icon('heroicon-o-arrow-path-rounded-square')
+                            ->tooltip('Buat kata sandi acak')
+                            ->action(function (callable $set) {
+                                $set('password', Str::random(8));
+                            })
+                    ),
             ]);
     }
 }
