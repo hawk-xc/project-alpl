@@ -15,7 +15,7 @@ class CustomersTable
     {
         return $table
             ->columns([
-                TextColumn::make('tariff.power')
+                TextColumn::make('customerTariff.power')
                     ->label('Tarif Pelanggan')
                     ->badge()
                     ->icon('heroicon-o-bolt')

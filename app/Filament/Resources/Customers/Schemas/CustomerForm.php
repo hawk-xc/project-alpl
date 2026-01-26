@@ -14,7 +14,7 @@ class CustomerForm
         return $schema
             ->components([
                 Select::make('tariff_id')
-                    ->relationship(name: 'tariff', titleAttribute: 'power')
+                    ->relationship(name: 'customerTariff', titleAttribute: 'power')
                     ->native(false)
                     ->required(),
                 TextInput::make('name')

@@ -23,8 +23,23 @@ class Customer extends Model
     ];
 
     // relationship
-    public function tariff()
+    public function customerTariff()
     {
         return $this->belongsTo(CustomerTariff::class, 'tariff_id');
+    }
+
+    public function customerBills()
+    {
+        return $this->hasMany(CustomerBill::class, 'customer_id');
+    }
+
+    public function customerPayments()
+    {
+        return $this->hasMany(CustomerPayment::class, 'customer_id');
+    }
+
+    public function customerUsages()
+    {
+        return $this->hasMany(CustomerUsage::class, 'customer_id'); 
     }
 }
