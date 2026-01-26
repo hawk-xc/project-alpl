@@ -20,6 +20,14 @@ class CustomersTable
                     ->badge()
                     ->icon('heroicon-o-bolt')
                     ->sortable(),
+                TextColumn::make('customer_id')
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Nomor kWh berhasil disalin')
+                    ->icon('heroicon-o-clipboard-document')
+                    ->iconColor('primary')
+                    ->iconPosition('after')
+                    ->label('Nomor kWh'),
                 TextColumn::make('name')
                     ->searchable()
                     ->label('Nama Pelanggan'),

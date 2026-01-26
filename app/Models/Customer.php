@@ -13,6 +13,8 @@ class Customer extends Model
 
     protected $fillable = [
         'tariff_id',
+        'customer_id',
+        'email',
         'name',
         'username',
         'address',

@@ -20,7 +20,17 @@ class CustomerForm
                 ->native(false)
                 ->placeholder('Pilih Tarif')
                 ->required(),
+            TextInput::make('customer_id')->label('Nomor kWh')->placeholder('Nomor kWh')->unique(table: 'customers', column: 'customer_id')->required()
+                ->prefixAction(
+                    Action::make('generatePassword')
+                        ->icon('heroicon-o-arrow-path-rounded-square')
+                        ->tooltip('Buat kata sandi acak')
+                        ->action(function (callable $set) {
+                            $set('customer_id', str_pad(random_int(0, 99999999999), 11, '0', STR_PAD_LEFT));
+                        })
+                ),
             TextInput::make('name')->label('Nama Pengguna')->placeholder('Nama Pengguna')->required(),
+            TextInput::make('email')->label('Email')->placeholder('Email')->unique(table: 'customers', column: 'email')->email(true)->required(),
             TextInput::make('username')->label('Username')->placeholder('Username')->unique(table: 'customers', column: 'username')->required(),
             TextInput::make('password')
                 ->label('Kata Sandi')

@@ -15,8 +15,14 @@ class CustomerInfolist
                     ->numeric()
                     ->badge()
                     ->icon('heroicon-o-bolt'),
+                TextEntry::make('customer_id')
+                    ->label('Nomor kWh')
+                    ->copyable()
+                    ->copyMessage('Nomor kWh berhasil disalin'),
                 TextEntry::make('name')
                     ->label('Nama Pelanggan'),
+                TextEntry::make('email')
+                    ->label('Email Pelanggan'),
                 TextEntry::make('username')
                     ->label('Username'),
                 TextEntry::make('roles.name')

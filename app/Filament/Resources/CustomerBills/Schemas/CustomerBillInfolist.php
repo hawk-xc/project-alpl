@@ -11,10 +11,12 @@ class CustomerBillInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('bill_id'),
+                TextEntry::make('bill_id')
+                    ->label('ID Tagihan')
+                    ->copyable()
+                    ->copyMessage('ID Tagihan berhasil disalin'),
                 TextEntry::make('customer.name')
-                    ->label('Pelanggan')
-                    ->icon('heroicon-o-user')
+                    ->label('Nama Pelanggan')
                     ->numeric(),
                 TextEntry::make('customerUsage.id')
                     ->label('ID Penggunaan')
@@ -26,9 +28,34 @@ class CustomerBillInfolist
                     ->label('Tahun Pembayaran'),
                 TextEntry::make('total_meter')
                     ->label('Pemakaian Meter')
+                    ->badge()
+                    ->icon('heroicon-o-bolt')
+                    ->suffix(' kWh')
+                    ->numeric(),
+                TextEntry::make('customerUsage.start_meter')
+                    ->label('Meter Awal')
+                    ->badge()
+                    ->icon('heroicon-o-bolt')
+                    ->suffix(' kWh')
+                    ->numeric(),
+                TextEntry::make('customerUsage.end_meter')
+                    ->label('Meter Akhir')
+                    ->badge()
+                    ->icon('heroicon-o-bolt')
+                    ->suffix(' kWh')
                     ->numeric(),
                 TextEntry::make('status')
                     ->label('Status Tagihan')
+                    ->color(fn($state): string => match ($state) {
+                        'paid' => 'success',
+                        'unpaid' => 'danger',
+                        default => 'warning',
+                    })
+                    ->icon(fn($state): string => match ($state) {
+                        'paid' => 'heroicon-o-check-circle',
+                        'unpaid' => 'heroicon-o-x-circle',
+                        default => 'heroicon-o-exclamation-circle',
+                    })
                     ->badge(),
                 TextEntry::make('created_at')
                     ->label('Ditambahkan Pada')

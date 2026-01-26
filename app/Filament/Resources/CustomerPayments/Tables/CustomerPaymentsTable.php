@@ -26,6 +26,9 @@ class CustomerPaymentsTable
                     ->label('Nama Pelanggan')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('customerBill.month')
+                    ->label('Bulan')
+                    ->sortable(),
                 TextColumn::make('admin_fee')
                     ->numeric()
                     ->prefix('Rp. ')
@@ -37,6 +40,18 @@ class CustomerPaymentsTable
                     ->prefix('Rp. ')
                     ->sortable(),
                 TextColumn::make('customerBill.status')
+                    ->color(fn(string $state): string => match ($state) {
+                        'paid' => 'success',
+                        'pending' => 'warning',
+                        'overdue' => 'danger',
+                        default => 'gray',
+                    })
+                    ->icon(fn(string $state): string => match ($state) {
+                        'paid' => 'heroicon-o-check-circle',
+                        'pending' => 'heroicon-o-clock',
+                        'overdue' => 'heroicon-o-exclamation-circle',
+                        default => 'heroicon-o-circle',
+                    })
                     ->badge()
                     ->label('Status Pembayaran'),
                 TextColumn::make('created_at')

@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\CustomerPayments\Schemas;
 
+use Carbon\Carbon;
 use Filament\Schemas\Schema;
+use App\Models\CustomerPayment;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DateTimePicker;
-use App\Models\CustomerPayment;
-use Carbon\Carbon;
+use Filament\Schemas\Components\Utilities\Get;
 
 class CustomerPaymentForm
 {
@@ -35,23 +36,33 @@ class CustomerPaymentForm
                     return 'INV-' . $date . str_pad($number, 3, '0', STR_PAD_LEFT);
                 }),
             Select::make('customer_id')
-                ->relationship(name: 'customer', titleAttribute: 'name')
-                ->prefixIcon('heroicon-o-user')
-                ->native(false)->label('ID Pelanggan')
-                ->placeholder('ID Pelanggan')
-                ->required(),
-            Select::make('customer_bill_id')
-                ->relationship(name: 'customerBill', titleAttribute: 'bill_id')
+                ->relationship('customer', 'name')
                 ->native(false)
-                ->prefixIcon('heroicon-o-banknotes')
+                ->required()
+                ->afterStateUpdated(fn($set) => $set('customer_bill_id', null))
+                ->reactive(),
+
+            Select::make('customer_bill_id')
                 ->label('ID Tagihan')
-                ->placeholder('ID Tagihan')
-                ->required(),
+                ->relationship(
+                    name: 'customerBill',
+                    titleAttribute: 'bill_id',
+                    modifyQueryUsing: fn($query, Get $get) =>
+                    $query->when(
+                        $get('customer_id'),
+                        fn($q) => $q->where('customer_id', $get('customer_id'))
+                    )
+                )
+                ->native(false)
+                ->required()
+                ->prefixIcon('heroicon-o-banknotes')
+                ->placeholder('Pilih tagihan sesuai pelanggan'),
             DateTimePicker::make('payment_at')
                 ->prefixIcon('heroicon-o-calendar')
                 ->label('Tanggal Pembayaran')
                 ->placeholder('Tanggal Pembayaran')
                 ->native(false)
+                ->default(now())
                 ->required(),
             Select::make('month_paid')
                 ->options([
@@ -73,7 +84,6 @@ class CustomerPaymentForm
                 ->placeholder('Bulan Tagihan')
                 ->required(),
             TextInput::make('admin_fee')->label('Biaya Admin')->placeholder('Biaya Admin')->prefix('Rp. ')->numeric(),
-            TextInput::make('total_amount')->label('Total')->placeholder('Total')->required()->prefix('Rp. ')->numeric(),
         ]);
     }
 }
