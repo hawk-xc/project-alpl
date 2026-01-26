@@ -22,7 +22,9 @@ class CustomerInfolist
                 TextEntry::make('name')
                     ->label('Nama Pelanggan'),
                 TextEntry::make('email')
-                    ->label('Email Pelanggan'),
+                    ->label('Email Pelanggan')
+                    ->copyable()
+                    ->copyMessage('Email berhasil disalin'),
                 TextEntry::make('username')
                     ->label('Username'),
                 TextEntry::make('roles.name')
