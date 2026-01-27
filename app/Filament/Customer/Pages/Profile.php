@@ -3,21 +3,27 @@
 namespace App\Filament\Customer\Pages;
 
 use BackedEnum;
-use Filament\Pages\Page;
+use UnitEnum;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 
 class Profile extends Page implements HasForms
 {
     use InteractsWithForms;
     
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-circle';
+
+    protected static UnitEnum|string|null $navigationGroup = 'Informasi Pengguna';
+    
+    protected static ?int $navigationSort = 4;
     
     public string $view = 'filament.customer.pages.profile';
     
@@ -34,84 +40,76 @@ class Profile extends Page implements HasForms
         $this->form->fill([
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,
+            'username' => auth()->user()->username,
+            'created_at' => auth()->user()->created_at,
+            'address' => auth()->user()->address,
+            // tariff
+            'customerTariffPower' => auth()->user()->customerTariff->power,
+            'customerTotalMeterPower' => auth()->user()->total_usage_meter,
         ]);
     }
     
     protected function getFormSchema(): array
     {
         return [
-            FileUpload::make('avatar')
-                ->label('Avatar')
-                ->image()
-                ->avatar()
-                ->directory('avatars')
-                ->maxSize(1024),
-                
-            TextInput::make('name')
-                ->label('Name')
-                ->required()
-                ->maxLength(255),
-                
-            TextInput::make('email')
-                ->label('Email')
-                ->email()
-                ->required()
-                ->maxLength(255),
-                
-            TextInput::make('current_password')
-                ->label('Current Password')
-                ->password()
-                ->dehydrated(false)
-                ->currentPassword(),
-                
-            TextInput::make('password')
-                ->label('New Password')
-                ->password()
-                ->dehydrated(fn ($state) => filled($state))
-                ->confirmed()
-                ->minLength(8)
-                ->helperText('Leave blank if you don\'t want to change password'),
-                
-            TextInput::make('password_confirmation')
-                ->label('Confirm New Password')
-                ->password()
-                ->dehydrated(false),
+            Section::make('Informasi Pengguna')->schema([
+                TextInput::make('name')
+                    ->label('Name')
+                    ->readOnly()
+                    ->maxLength(255)
+                    ->columnSpan(1),
+                    
+                TextInput::make('email')
+                    ->label('Email')
+                    ->email()
+                    ->readOnly()
+                    ->maxLength(255)
+                    ->columnSpan(1),
+
+                TextInput::make('username')
+                    ->label('Username')
+                    ->readOnly()
+                    ->maxLength(255)
+                    ->columnSpan(1),
+
+                TextInput::make('created_at')
+                    ->label('Tanggal Bergabung')
+                    ->readOnly()
+                    ->maxLength(255)
+                    ->columnSpan(1),
+
+                TextInput::make('address')
+                    ->label('Alamat')
+                    ->readOnly()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+            ])->columns(2),
+            Section::make('Informasi Akun Pengguna')->schema([
+                TextInput::make('customerTariffPower')
+                    ->label('Daya')
+                    ->prefixIcon('heroicon-o-bolt')
+                    ->readOnly()
+                    ->maxLength(255)
+                    ->columnSpan(1),
+
+                TextInput::make('customerTotalMeterPower')
+                    ->label('Penggunaan Total Meter')
+                    ->prefixIcon('heroicon-o-bolt')
+                    ->readOnly()
+                    ->suffix('kWh')
+                    ->maxLength(255)
+                    ->columnSpan(1),
+            ])->columns(2),
         ];
-    }
+    }   
     
     protected function getFormStatePath(): string
     {
         return 'data';
     }
-    
+
     protected function getFormActions(): array
     {
-        return [
-            Action::make('save')
-                ->label('Update Profile')
-                ->submit('save'),
-        ];
-    }
-    
-    public function save(): void
-    {
-        $data = $this->form->getState();
-        
-        $user = auth()->user();
-        
-        if (filled($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']);
-        }
-        
-        unset($data['current_password'], $data['password_confirmation']);
-        
-        $user->update($data);
-        
-        Notification::make()
-            ->success()
-            ->title('Profile updated successfully')
-            ->send();
+        return [];
     }
 }
