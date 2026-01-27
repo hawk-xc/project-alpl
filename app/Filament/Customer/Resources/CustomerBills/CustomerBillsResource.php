@@ -22,7 +22,7 @@ class CustomerBillsResource extends Resource
     protected static ?string $model = CustomerBill::class;
 
     protected static UnitEnum|string|null $navigationGroup = 'Pelanggan';
-    
+
     protected static ?string $title = 'Tagihan Saya';
 
     protected static ?int $navigationSort = 2;

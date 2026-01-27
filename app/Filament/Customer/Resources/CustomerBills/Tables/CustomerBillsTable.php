@@ -3,17 +3,20 @@
 namespace App\Filament\Customer\Resources\CustomerBills\Tables;
 
 use Filament\Tables\Table;
-use Filament\Actions\EditAction;
+use Filament\Facades\Filament;
 use Filament\Actions\ViewAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerBillsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(
+                fn(Builder $query) =>
+                $query->where('customer_id', Filament::auth()->id())
+            )
             ->columns([
                 TextColumn::make('bill_id')
                     ->label('ID Tagihan')

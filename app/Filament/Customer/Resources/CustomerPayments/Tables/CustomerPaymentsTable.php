@@ -3,17 +3,25 @@
 namespace App\Filament\Customer\Resources\CustomerPayments\Tables;
 
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
+use App\Models\CustomerPayment;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerPaymentsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(
+                fn(Builder $query) =>
+                $query->where('customer_id', Filament::auth()->id())
+            )
             ->columns([
                 TextColumn::make('transaction_id')
                     ->label('Invoice Transaksi')
@@ -70,6 +78,7 @@ class CustomerPaymentsTable
             ])
             ->recordActions([
                 ViewAction::make(),
+                DeleteAction::make()->visible(fn(CustomerPayment $record): bool => $record->customerBill->status === 'pending'),
                 // EditAction::make(),
             ])
             ->toolbarActions([

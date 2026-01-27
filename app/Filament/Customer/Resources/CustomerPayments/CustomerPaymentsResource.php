@@ -22,7 +22,7 @@ class CustomerPaymentsResource extends Resource
     protected static ?string $model = CustomerPayment::class;
 
     protected static UnitEnum|string|null $navigationGroup = 'Pelanggan';
-    
+
     protected static ?string $title = 'Pembayaran Saya';
 
     protected static ?int $navigationSort = 3;
@@ -59,9 +59,9 @@ class CustomerPaymentsResource extends Resource
     {
         return [
             'index' => ListCustomerPayments::route('/'),
-            // 'create' => CreateCustomerPayments::route('/create'),
+            'create' => CreateCustomerPayments::route('/create'),
             'view' => ViewCustomerPayments::route('/{record}'),
-            // 'edit' => EditCustomerPayments::route('/{record}/edit'),
+            'edit' => EditCustomerPayments::route('/{record}/edit'),
         ];
     }
 }
