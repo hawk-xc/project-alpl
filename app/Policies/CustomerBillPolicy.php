@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\CustomerBill;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class CustomerBillPolicy
@@ -13,17 +12,30 @@ class CustomerBillPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(Customer $user): bool
+    public function viewAny(Authenticatable $user): bool
     {
-        return true;
+        if ($user instanceof Customer) {
+            return true;
+        }
+
+        if ($user instanceof User) {
+            return true;
+        }
+
+        return false;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
     public function view(Authenticatable $user, CustomerBill $bill): bool
     {
-        return (int) $bill->customer_id === (int) $user->getAuthIdentifier();
+        if ($user instanceof Customer) {
+            return $bill->customer_id === $user->id;
+        }
+
+        if ($user instanceof User) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -31,38 +43,70 @@ class CustomerBillPolicy
      */
     public function create(Customer $user): bool
     {
-        return $user->is_admin;
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Customer $user, CustomerBill $customerBill): bool
+    public function update(Authenticatable $user, CustomerBill $bill): bool
     {
-        return $customerBill->customer_id === $user->id;
+        if ($user instanceof Customer) {
+            return $bill->customer_id === $user->id;
+        }
+
+        if ($user instanceof User) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(Customer $user, CustomerBill $customerBill): bool
+    public function delete(Authenticatable $user, CustomerBill $bill): bool
     {
-        return $customerBill->customer_id === $user->id;
+        if ($user instanceof Customer) {
+            return $bill->customer_id === $user->id;
+        }
+
+        if ($user instanceof User) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(Customer $user, CustomerBill $customerBill): bool
+    public function restore(Authenticatable $user, CustomerBill $bill): bool
     {
-        return $customerBill->customer_id === $user->id;
+        if ($user instanceof Customer) {
+            return $bill->customer_id === $user->id;
+        }
+
+        if ($user instanceof User) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(Customer $user, CustomerBill $customerBill): bool
+    public function forceDelete(Authenticatable $user, CustomerBill $bill): bool
     {
-        return $customerBill->customer_id === $user->id;
+        if ($user instanceof Customer) {
+            return $bill->customer_id === $user->id;
+        }
+
+        if ($user instanceof User) {
+            return true;
+        }
+
+        return false;
     }
 }

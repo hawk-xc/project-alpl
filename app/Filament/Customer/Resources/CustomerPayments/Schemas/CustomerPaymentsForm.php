@@ -7,8 +7,8 @@ use Filament\Schemas\Schema;
 use App\Models\CustomerPayment;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Schemas\Components\Utilities\Get;
 
 class CustomerPaymentsForm
 {
@@ -79,6 +79,13 @@ class CustomerPaymentsForm
                 ->placeholder('Bulan Tagihan')
                 ->required(),
             TextInput::make('admin_fee')->default(3000)->readOnly()->label('Biaya Admin')->placeholder('Biaya Admin')->prefix('Rp. ')->numeric(),
+            FileUpload::make('proof_document')
+                ->disk('public')
+                ->acceptedFileTypes(['image/jpeg', 'image/png', 'application/pdf'])
+                ->label('Bukti Pembayaran')
+                ->placeholder('Bukti Pembayaran')
+                ->directory('customer-payments/proof-document')
+                ->required(),
         ]);
     }
 }

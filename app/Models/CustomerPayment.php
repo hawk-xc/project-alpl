@@ -16,6 +16,9 @@ class CustomerPayment extends Model
         'month_paid',
         'admin_fee',
         'total_amount',
+
+        // proof document
+        'proof_document',
     ];
 
     public function customer()

@@ -7,6 +7,7 @@ use Filament\Schemas\Schema;
 use App\Models\CustomerPayment;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Schemas\Components\Utilities\Get;
 
@@ -83,7 +84,7 @@ class CustomerPaymentForm
                 ->label('Bulan Tagihan')
                 ->placeholder('Bulan Tagihan')
                 ->required(),
-            TextInput::make('admin_fee')->label('Biaya Admin')->placeholder('Biaya Admin')->prefix('Rp. ')->numeric(),
+            TextInput::make('admin_fee')->label('Biaya Admin')->placeholder('Biaya Admin')->prefix('Rp. ')->numeric()
         ]);
     }
 }

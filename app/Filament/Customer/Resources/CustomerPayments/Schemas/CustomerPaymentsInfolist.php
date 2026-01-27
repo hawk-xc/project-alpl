@@ -4,6 +4,7 @@ namespace App\Filament\Customer\Resources\CustomerPayments\Schemas;
 
 use Filament\Schemas\Schema;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ImageEntry;
 
 class CustomerPaymentsInfolist
 {
@@ -66,6 +67,13 @@ class CustomerPaymentsInfolist
                         default => 'heroicon-o-exclamation-circle',
                     })
                     ->placeholder('-'),
+                ImageEntry::make('proof_document')
+                    ->disk('public')
+                    ->height(500)
+                    ->width(500)
+                    ->label('Bukti Pembayaran')
+                    ->visibility('public')
+                    ->placeholder('-')
             ]);
     }
 }
