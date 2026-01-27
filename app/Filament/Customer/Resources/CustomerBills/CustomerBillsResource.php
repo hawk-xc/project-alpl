@@ -23,15 +23,15 @@ class CustomerBillsResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Pelanggan';
     
-    protected static ?string $title = 'Tagihan Pelanggan';
+    protected static ?string $title = 'Tagihan Saya';
 
     protected static ?int $navigationSort = 2;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Banknotes;
 
-    protected static ?string $recordTitleAttribute = 'Tagihan Pelanggan';
+    protected static ?string $recordTitleAttribute = 'Tagihan Saya';
 
-    protected static ?string $navigationLabel = 'Tagihan Pelanggan';
+    protected static ?string $navigationLabel = 'Tagihan Saya';
 
     public static function form(Schema $schema): Schema
     {
@@ -59,9 +59,9 @@ class CustomerBillsResource extends Resource
     {
         return [
             'index' => ListCustomerBills::route('/'),
-            'create' => CreateCustomerBills::route('/create'),
+            // 'create' => CreateCustomerBills::route('/create'),
             'view' => ViewCustomerBills::route('/{record}'),
-            'edit' => EditCustomerBills::route('/{record}/edit'),
+            // 'edit' => EditCustomerBills::route('/{record}/edit'),
         ];
     }
 }

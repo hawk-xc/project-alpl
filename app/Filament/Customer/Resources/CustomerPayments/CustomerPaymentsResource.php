@@ -23,15 +23,15 @@ class CustomerPaymentsResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Pelanggan';
     
-    protected static ?string $title = 'Pembayaran Pelanggan';
+    protected static ?string $title = 'Pembayaran Saya';
 
     protected static ?int $navigationSort = 3;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::CreditCard;
 
-    protected static ?string $recordTitleAttribute = 'Pembayaran Pelanggan';
+    protected static ?string $recordTitleAttribute = 'Pembayaran Saya';
 
-    protected static ?string $navigationLabel = 'Pembayaran Pelanggan';
+    protected static ?string $navigationLabel = 'Pembayaran Saya';
 
     public static function form(Schema $schema): Schema
     {
@@ -59,9 +59,9 @@ class CustomerPaymentsResource extends Resource
     {
         return [
             'index' => ListCustomerPayments::route('/'),
-            'create' => CreateCustomerPayments::route('/create'),
+            // 'create' => CreateCustomerPayments::route('/create'),
             'view' => ViewCustomerPayments::route('/{record}'),
-            'edit' => EditCustomerPayments::route('/{record}/edit'),
+            // 'edit' => EditCustomerPayments::route('/{record}/edit'),
         ];
     }
 }
