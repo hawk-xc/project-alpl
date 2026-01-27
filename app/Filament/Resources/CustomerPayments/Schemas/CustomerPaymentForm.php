@@ -50,7 +50,7 @@ class CustomerPaymentForm
                     modifyQueryUsing: fn($query, Get $get) =>
                     $query->when(
                         $get('customer_id'),
-                        fn($q) => $q->where('customer_id', $get('customer_id'))
+                        fn($q) => $q->where('customer_id', $get('customer_id'))->where('status', '!=', 'paid')
                     )
                 )
                 ->native(false)

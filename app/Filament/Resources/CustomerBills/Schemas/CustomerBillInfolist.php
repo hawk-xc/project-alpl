@@ -18,10 +18,10 @@ class CustomerBillInfolist
                 TextEntry::make('customer.name')
                     ->label('Nama Pelanggan')
                     ->numeric(),
-                TextEntry::make('customerUsage.id')
-                    ->label('ID Penggunaan')
-                    ->icon('heroicon-o-document-text')
-                    ->numeric(),
+                TextEntry::make('customer.customer_id')
+                    ->label('No kWh')
+                    ->copyable()
+                    ->copyMessage('No kWh berhasil disalin'),
                 TextEntry::make('month')
                     ->label('Bulan Pembayaran'),
                 TextEntry::make('year')
