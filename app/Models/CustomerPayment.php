@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomerPayment extends Model
 {
+    // Table name information
     protected $table = 'customer_payments';
 
+    // Column Fillable fields
     protected $fillable = [
         'transaction_id',
         'customer_id',
@@ -21,6 +23,7 @@ class CustomerPayment extends Model
         'proof_document',
     ];
 
+    // Relationship
     public function customer()
     {
         return $this->belongsTo(Customer::class);

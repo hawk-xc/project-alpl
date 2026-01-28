@@ -19,33 +19,63 @@ use UnitEnum;
 
 class CustomerResource extends Resource
 {
+    /**
+     * The model class.
+     */
     protected static ?string $model = Customer::class;
 
+    /**
+     * The navigation icon.
+     */
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 
+    /**
+     * The navigation group.
+     */
     protected static UnitEnum|string|null $navigationGroup = 'Pelanggan';
 
+    /**
+     * The record title attribute.
+     */
     protected static ?string $recordTitleAttribute = 'Pelanggan';
 
+    /**
+     * The navigation label.
+     */
     protected static ?string $navigationLabel = 'Pelanggan';
 
+    /**
+     * The navigation sort.
+     */
     protected static ?int $navigationSort = 2;
 
+    /**
+     * Configure the form schema.
+     */
     public static function form(Schema $schema): Schema
     {
         return CustomerForm::configure($schema);
     }
 
+    /**
+     * Configure the infolist schema.
+     */
     public static function infolist(Schema $schema): Schema
     {
         return CustomerInfolist::configure($schema);
     }
 
+    /**
+     * Configure the table.
+     */
     public static function table(Table $table): Table
     {
         return CustomersTable::configure($table);
     }
 
+    /**
+     * Get the relations for the resource.
+     */
     public static function getRelations(): array
     {
         return [
@@ -53,6 +83,9 @@ class CustomerResource extends Resource
         ];
     }
 
+    /**
+     * Get the pages for the resource.
+     */
     public static function getPages(): array
     {
         return [
