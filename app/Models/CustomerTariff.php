@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 
 class CustomerTariff extends Model
@@ -17,6 +18,21 @@ class CustomerTariff extends Model
 
     public function getCustomerCountsAttribute()
     {
-        return $this->customer()->count();
+        // get Memmory Allocation usage
+        $startMemory = memory_get_usage();
+
+        // execution time (microtime)
+        $start = microtime(true);
+        $customerCount = $this->customer()->count();
+        $end = microtime(true);
+
+        $endMemory = memory_get_usage();
+        $execution_time = $end - $start;
+        $memory_usage = $endMemory - $startMemory;
+
+        Log::info('Execution time: ' . $execution_time);
+        Log::info('Memmory Allocation : ' . $memory_usage);
+
+        return $customerCount;
     }
 }
