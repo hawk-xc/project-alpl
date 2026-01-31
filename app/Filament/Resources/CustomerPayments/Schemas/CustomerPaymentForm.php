@@ -2,14 +2,13 @@
 
 namespace App\Filament\Resources\CustomerPayments\Schemas;
 
-use Carbon\Carbon;
-use Filament\Schemas\Schema;
 use App\Models\CustomerPayment;
+use Carbon\Carbon;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
 
 class CustomerPaymentForm
 {
@@ -34,13 +33,13 @@ class CustomerPaymentForm
 
                     $number = $lastInvoice ? ((int) substr($lastInvoice, -3)) + 1 : 1;
 
-                    return 'INV-' . $date . str_pad($number, 3, '0', STR_PAD_LEFT);
+                    return 'INV-'.$date.str_pad($number, 3, '0', STR_PAD_LEFT);
                 }),
             Select::make('customer_id')
                 ->relationship('customer', 'name')
                 ->native(false)
                 ->required()
-                ->afterStateUpdated(fn($set) => $set('customer_bill_id', null))
+                ->afterStateUpdated(fn ($set) => $set('customer_bill_id', null))
                 ->reactive(),
 
             Select::make('customer_bill_id')
@@ -48,10 +47,9 @@ class CustomerPaymentForm
                 ->relationship(
                     name: 'customerBill',
                     titleAttribute: 'bill_id',
-                    modifyQueryUsing: fn($query, Get $get) =>
-                    $query->when(
+                    modifyQueryUsing: fn ($query, Get $get) => $query->when(
                         $get('customer_id'),
-                        fn($q) => $q->where('customer_id', $get('customer_id'))->where('status', '!=', 'paid')
+                        fn ($q) => $q->where('customer_id', $get('customer_id'))->where('status', '!=', 'paid')
                     )
                 )
                 ->native(false)
@@ -84,7 +82,7 @@ class CustomerPaymentForm
                 ->label('Bulan Tagihan')
                 ->placeholder('Bulan Tagihan')
                 ->required(),
-            TextInput::make('admin_fee')->label('Biaya Admin')->placeholder('Biaya Admin')->prefix('Rp. ')->numeric()
+            TextInput::make('admin_fee')->label('Biaya Admin')->placeholder('Biaya Admin')->prefix('Rp. ')->numeric(),
         ]);
     }
 }

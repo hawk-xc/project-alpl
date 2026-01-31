@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CustomerTariff extends Model
 {
+    use HasFactory;
+
     protected $table = 'customer_tariffs';
 
     protected $fillable = ['power', 'power_in_kwh'];

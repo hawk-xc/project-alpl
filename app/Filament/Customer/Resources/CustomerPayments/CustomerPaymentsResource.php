@@ -11,11 +11,11 @@ use App\Filament\Customer\Resources\CustomerPayments\Schemas\CustomerPaymentsInf
 use App\Filament\Customer\Resources\CustomerPayments\Tables\CustomerPaymentsTable;
 use App\Models\CustomerPayment;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CustomerPaymentsResource extends Resource
 {

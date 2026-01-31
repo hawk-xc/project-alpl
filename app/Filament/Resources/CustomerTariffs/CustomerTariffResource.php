@@ -8,11 +8,11 @@ use App\Filament\Resources\CustomerTariffs\Pages\ListCustomerTariffs;
 use App\Filament\Resources\CustomerTariffs\Schemas\CustomerTariffForm;
 use App\Filament\Resources\CustomerTariffs\Tables\CustomerTariffsTable;
 use App\Models\CustomerTariff;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use BackedEnum;
 use UnitEnum;
 
 class CustomerTariffResource extends Resource

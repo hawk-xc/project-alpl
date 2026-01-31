@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources\CustomerBills\Pages;
 
-use Filament\Actions\CreateAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\CustomerBills\CustomerBillResource;
+use Filament\Actions\CreateAction;
+use Filament\Resources\Pages\ListRecords;
 
 class ListCustomerBills extends ListRecords
 {

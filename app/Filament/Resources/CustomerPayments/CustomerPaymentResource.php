@@ -10,12 +10,12 @@ use App\Filament\Resources\CustomerPayments\Schemas\CustomerPaymentForm;
 use App\Filament\Resources\CustomerPayments\Schemas\CustomerPaymentInfolist;
 use App\Filament\Resources\CustomerPayments\Tables\CustomerPaymentsTable;
 use App\Models\CustomerPayment;
-use UnitEnum;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CustomerPaymentResource extends Resource
 {

@@ -2,17 +2,17 @@
 
 namespace App\Filament\Resources\CustomerBills\Schemas;
 
-use Illuminate\Support\Str;
-use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class CustomerBillForm
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            TextInput::make('bill_id')->label('Id Tagihan')->required()->readOnly()->dehydrated()->prefixIcon('heroicon-o-tag')->hintIcon('heroicon-o-information-circle', 'Id Tagihan dibuat otomatis')->default(fn() => self::generateUniqueBillId()),
+            TextInput::make('bill_id')->label('Id Tagihan')->required()->readOnly()->dehydrated()->prefixIcon('heroicon-o-tag')->hintIcon('heroicon-o-information-circle', 'Id Tagihan dibuat otomatis')->default(fn () => self::generateUniqueBillId()),
             Select::make('customer_id')
                 ->relationship(name: 'customer', titleAttribute: 'name')
                 ->required()
@@ -70,7 +70,7 @@ class CustomerBillForm
     {
         do {
             $random = strtoupper(Str::random(10));
-            $billId = 'EL-' . $random;
+            $billId = 'EL-'.$random;
         } while (\App\Models\CustomerBill::where('bill_id', $billId)->exists());
 
         return $billId;

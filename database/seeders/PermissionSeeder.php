@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PermissionSeeder extends Seeder
 {
@@ -68,7 +67,7 @@ class PermissionSeeder extends Seeder
             'customer_usages:list',
             'customer_payment:list',
             'customer_tariff:detail',
-            'customer:detail'
+            'customer:detail',
         ];
 
         foreach ($permissions as $permission) {

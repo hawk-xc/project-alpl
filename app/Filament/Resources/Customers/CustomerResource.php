@@ -7,19 +7,22 @@ use App\Filament\Resources\Customers\Pages\EditCustomer;
 use App\Filament\Resources\Customers\Pages\ListCustomers;
 use App\Filament\Resources\Customers\Pages\ViewCustomer;
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
+use Illuminate\Support\Facades\Gate;
 use App\Filament\Resources\Customers\Schemas\CustomerInfolist;
 use App\Filament\Resources\Customers\Tables\CustomersTable;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Customer;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use App\Models\Customer;
-use BackedEnum;
+use Illuminate\Database\Eloquent\Builder;
 use UnitEnum;
 
 class CustomerResource extends Resource
 {
+    protected static string $name = 'customers';
+
     /**
      * The model class.
      */
@@ -93,7 +96,7 @@ class CustomerResource extends Resource
                 'customer_id',
                 'name',
                 'created_at',
-                'updated_at'
+                'updated_at',
             ]);
     }
 
@@ -108,5 +111,47 @@ class CustomerResource extends Resource
             'view' => ViewCustomer::route('/{record}'),
             'edit' => EditCustomer::route('/{record}/edit'),
         ];
+    }
+
+    // Permission Scope
+    public static function canViewAny(): bool
+    {
+        return Gate::allows(self::$name . ':list');
+    }
+
+    public static function canView($record): bool
+    {
+        return Gate::allows(self::$name . ':list');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Gate::allows(self::$name . ':create');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Gate::allows(self::$name . ':edit');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Gate::allows(self::$name . ':delete');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Gate::allows(self::$name . ':delete');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Gate::allows(self::$name . ':delete');
+    }
+
+    // Navigation Visibility
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->can(self::$name . ':list');
     }
 }

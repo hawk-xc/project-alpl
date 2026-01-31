@@ -2,8 +2,8 @@
 
 namespace App\Filament\Customer\Resources\CustomerBills\Schemas;
 
-use Filament\Schemas\Schema;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
 
 class CustomerBillsInfolist
 {
@@ -46,12 +46,12 @@ class CustomerBillsInfolist
                     ->numeric(),
                 TextEntry::make('status')
                     ->label('Status Tagihan')
-                    ->color(fn($state): string => match ($state) {
+                    ->color(fn ($state): string => match ($state) {
                         'paid' => 'success',
                         'unpaid' => 'danger',
                         default => 'warning',
                     })
-                    ->icon(fn($state): string => match ($state) {
+                    ->icon(fn ($state): string => match ($state) {
                         'paid' => 'heroicon-o-check-circle',
                         'unpaid' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-exclamation-circle',

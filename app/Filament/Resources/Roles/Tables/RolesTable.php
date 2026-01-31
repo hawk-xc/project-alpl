@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\Roles\Tables;
 
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Actions\EditAction;
-use Spatie\Permission\Models\Role;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class RolesTable
 {
@@ -19,12 +19,12 @@ class RolesTable
                 TextColumn::make('name')
                     ->label('Role Name')
                     ->searchable()
-                    ->getStateUsing(fn(Role $record): string => Str::upper($record->name))
+                    ->getStateUsing(fn (Role $record): string => Str::upper($record->name))
                     ->sortable(),
 
                 TextColumn::make('created_at')
                     ->label('Created At')
-                    ->getStateUsing(fn(Role $record): string => $record->created_at->diffForHumans()),
+                    ->getStateUsing(fn (Role $record): string => $record->created_at->diffForHumans()),
 
                 TextColumn::make('permissions_count')
                     ->label('Total Permissions')
@@ -32,14 +32,14 @@ class RolesTable
 
                 TextColumn::make('users.name')
                     ->label('Users')
-                    ->getStateUsing(fn(Role $record) => $record->users->pluck('name')->toArray())
+                    ->getStateUsing(fn (Role $record) => $record->users->pluck('name')->toArray())
                     ->formatStateUsing(function ($state) {
-                        return collect($state)->map(fn($name) => "👤 {$name}")->join(', ');
+                        return collect($state)->map(fn ($name) => "👤 {$name}")->join(', ');
                     })
                     ->badge()
                     ->wrap()
                     ->searchable()
-                    ->limitList(5)
+                    ->limitList(5),
             ])
             ->filters([
                 //

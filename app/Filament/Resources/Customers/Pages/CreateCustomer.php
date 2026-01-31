@@ -27,8 +27,6 @@ class CreateCustomer extends CreateRecord
 
     /**
      * Perform actions after the record has been created.
-     *
-     * @return void
      */
     protected function afterCreate(): void
     {

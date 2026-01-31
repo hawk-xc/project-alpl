@@ -24,7 +24,7 @@ class UsersTable
                 TextColumn::make('roles.name')
                     ->label('Role')
                     ->icon('heroicon-o-tag')
-                    ->formatStateUsing(fn($state) => strtoupper($state))
+                    ->formatStateUsing(fn ($state) => strtoupper($state))
                     ->badge(),
                 TextColumn::make('created_at')
                     ->label('Created At')

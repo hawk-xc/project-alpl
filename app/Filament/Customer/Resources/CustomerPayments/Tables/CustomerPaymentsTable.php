@@ -2,15 +2,15 @@
 
 namespace App\Filament\Customer\Resources\CustomerPayments\Tables;
 
-use Filament\Tables\Table;
-use Filament\Facades\Filament;
 use App\Models\CustomerPayment;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Facades\Filament;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class CustomerPaymentsTable
@@ -19,8 +19,7 @@ class CustomerPaymentsTable
     {
         return $table
             ->modifyQueryUsing(
-                fn(Builder $query) =>
-                $query->where('customer_id', Filament::auth()->id())
+                fn (Builder $query) => $query->where('customer_id', Filament::auth()->id())
             )
             ->columns([
                 TextColumn::make('transaction_id')
@@ -48,13 +47,13 @@ class CustomerPaymentsTable
                     ->prefix('Rp. ')
                     ->sortable(),
                 TextColumn::make('customerBill.status')
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         'paid' => 'success',
                         'pending' => 'warning',
                         'overdue' => 'danger',
                         default => 'gray',
                     })
-                    ->icon(fn(string $state): string => match ($state) {
+                    ->icon(fn (string $state): string => match ($state) {
                         'paid' => 'heroicon-o-check-circle',
                         'pending' => 'heroicon-o-clock',
                         'overdue' => 'heroicon-o-exclamation-circle',
@@ -78,7 +77,7 @@ class CustomerPaymentsTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                DeleteAction::make()->visible(fn(CustomerPayment $record): bool => $record->customerBill->status === 'pending'),
+                DeleteAction::make()->visible(fn (CustomerPayment $record): bool => $record->customerBill->status === 'pending'),
                 // EditAction::make(),
             ])
             ->toolbarActions([

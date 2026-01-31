@@ -2,13 +2,13 @@
 
 namespace App\Filament\Customer\Resources\CustomerPayments\Schemas;
 
-use Carbon\Carbon;
-use Filament\Schemas\Schema;
 use App\Models\CustomerPayment;
+use Carbon\Carbon;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\DateTimePicker;
+use Filament\Schemas\Schema;
 
 class CustomerPaymentsForm
 {
@@ -33,7 +33,7 @@ class CustomerPaymentsForm
 
                     $number = $lastInvoice ? ((int) substr($lastInvoice, -3)) + 1 : 1;
 
-                    return 'INV-' . $date . str_pad($number, 3, '0', STR_PAD_LEFT);
+                    return 'INV-'.$date.str_pad($number, 3, '0', STR_PAD_LEFT);
                 }),
             TextInput::make('customer_id')
                 ->default(auth()->user()->name)
@@ -45,8 +45,7 @@ class CustomerPaymentsForm
                 ->relationship(
                     name: 'customerBill',
                     titleAttribute: 'bill_id',
-                    modifyQueryUsing: fn($query) =>
-                    $query->where('customer_id', auth()->user()->id)->where('status', '!=', 'paid')
+                    modifyQueryUsing: fn ($query) => $query->where('customer_id', auth()->user()->id)->where('status', '!=', 'paid')
                 )
                 ->native(false)
                 ->required()

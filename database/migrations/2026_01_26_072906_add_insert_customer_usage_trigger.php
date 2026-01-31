@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -10,6 +10,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (DB::getDriverName() !== 'mysql') {
+            return;
+        }
+
         DB::unprepared("
             DROP TRIGGER IF EXISTS after_insert_customer_usage;
 
@@ -66,8 +70,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared("
+        DB::unprepared('
             DROP TRIGGER IF EXISTS after_insert_customer_usage;
-        ");
+        ');
     }
 };

@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\Permissions\Tables;
 
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 
 class PermissionsTable
@@ -21,7 +21,7 @@ class PermissionsTable
                     ->label('Permission Name')
                     ->searchable()
                     ->sortable()
-                    ->formatStateUsing(fn(string $state): string => Str::headline($state)),
+                    ->formatStateUsing(fn (string $state): string => Str::headline($state)),
                 TextColumn::make('guard_name')
                     ->label('Guard')
                     ->badge()
@@ -37,11 +37,11 @@ class PermissionsTable
                             ->unique('id');
 
                         // Nama role untuk tampilan badge
-                        $roleNames = $roles->pluck('name')->map(fn($n) => Str::limit($n, 15))->toArray();
+                        $roleNames = $roles->pluck('name')->map(fn ($n) => Str::limit($n, 15))->toArray();
 
                         // List user untuk tooltip
                         $userList = $roles
-                            ->flatMap(fn($role) => $role->users->pluck('name')) // kumpulkan semua user dari tiap role
+                            ->flatMap(fn ($role) => $role->users->pluck('name')) // kumpulkan semua user dari tiap role
                             ->unique()
                             ->values()
                             ->join(', ');
@@ -61,7 +61,6 @@ class PermissionsTable
                     ->badge()
                     ->color('info')
                     ->wrap(),
-
 
                 TextColumn::make('created_at')
                     ->label('Created At')

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\CustomerPayments\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
 
 class CustomerPaymentInfolist
 {
@@ -56,12 +56,12 @@ class CustomerPaymentInfolist
                 TextEntry::make('customerBill.status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn($state): string => match ($state) {
+                    ->color(fn ($state): string => match ($state) {
                         'paid' => 'success',
                         'unpaid' => 'danger',
                         default => 'warning',
                     })
-                    ->icon(fn($state): string => match ($state) {
+                    ->icon(fn ($state): string => match ($state) {
                         'paid' => 'heroicon-o-check-circle',
                         'unpaid' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-exclamation-circle',
@@ -73,7 +73,7 @@ class CustomerPaymentInfolist
                     ->width(500)
                     ->label('Bukti Pembayaran')
                     ->visibility('public')
-                    ->placeholder('-')
+                    ->placeholder('-'),
             ]);
     }
 }

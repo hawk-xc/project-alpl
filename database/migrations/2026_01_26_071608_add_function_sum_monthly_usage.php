@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -10,7 +10,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::unprepared("
+        if (DB::getDriverName() !== 'mysql') {
+            return;
+        }
+
+        DB::unprepared('
             DROP FUNCTION IF EXISTS fn_sum_monthly_usage;
 
             CREATE FUNCTION fn_sum_monthly_usage(
@@ -32,7 +36,7 @@ return new class extends Migration
 
                 RETURN IFNULL(total, 0);
             END;
-        ");
+        ');
     }
 
     /**
@@ -40,8 +44,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared("
+        DB::unprepared('
             DROP FUNCTION IF EXISTS fn_sum_monthly_usage
-        ");
+        ');
     }
 };

@@ -10,11 +10,11 @@ use App\Filament\Resources\CustomerUsages\Schemas\CustomerUsageForm;
 use App\Filament\Resources\CustomerUsages\Schemas\CustomerUsageInfolist;
 use App\Filament\Resources\CustomerUsages\Tables\CustomerUsagesTable;
 use App\Models\CustomerUsage;
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use BackedEnum;
 use UnitEnum;
 
 class CustomerUsageResource extends Resource

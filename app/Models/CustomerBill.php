@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class CustomerBill extends Model
 {
@@ -19,7 +19,7 @@ class CustomerBill extends Model
         'status',
     ];
 
-    public function customer() 
+    public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
@@ -37,7 +37,7 @@ class CustomerBill extends Model
     public function scopeUnpaidBill(Builder $query)
     {
         return $query->where('status', 'pending');
-    }   
+    }
 
     public function scopeOverdueBill(Builder $query)
     {

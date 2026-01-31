@@ -3,38 +3,33 @@
 namespace App\Filament\Customer\Pages;
 
 use BackedEnum;
-use UnitEnum;
-use Filament\Forms\Form;
-use Filament\Pages\Page;
-use Filament\Actions\Action;
-use Illuminate\Support\Facades\Hash;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Pages\Page;
+use Filament\Schemas\Components\Section;
+use UnitEnum;
 
 class Profile extends Page implements HasForms
 {
     use InteractsWithForms;
-    
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-circle';
 
     protected static UnitEnum|string|null $navigationGroup = 'Informasi Pengguna';
-    
+
     protected static ?int $navigationSort = 4;
-    
+
     public string $view = 'filament.customer.pages.profile';
-    
+
     protected static ?string $navigationLabel = 'Data Pelanggan';
-    
+
     protected static ?string $title = 'Data Pelanggan';
-    
+
     protected static bool $shouldRegisterNavigation = true;
-    
+
     public ?array $data = [];
-    
+
     public function mount(): void
     {
         $this->form->fill([
@@ -48,7 +43,7 @@ class Profile extends Page implements HasForms
             'customerTotalMeterPower' => auth()->user()->total_usage_meter,
         ]);
     }
-    
+
     protected function getFormSchema(): array
     {
         return [
@@ -58,7 +53,7 @@ class Profile extends Page implements HasForms
                     ->readOnly()
                     ->maxLength(255)
                     ->columnSpan(1),
-                    
+
                 TextInput::make('email')
                     ->label('Email')
                     ->email()
@@ -101,8 +96,8 @@ class Profile extends Page implements HasForms
                     ->columnSpan(1),
             ])->columns(2),
         ];
-    }   
-    
+    }
+
     protected function getFormStatePath(): string
     {
         return 'data';

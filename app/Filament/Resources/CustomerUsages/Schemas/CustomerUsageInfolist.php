@@ -15,15 +15,15 @@ class CustomerUsageInfolist
                     ->icon('heroicon-o-user')
                     ->label('Pelanggan'),
                 TextEntry::make('month')
-                ->icon('heroicon-o-calendar')
-                ->label('Bulan'),
+                    ->icon('heroicon-o-calendar')
+                    ->label('Bulan'),
                 TextEntry::make('year')
-                ->icon('heroicon-o-calendar')
-                ->label('Tahun'),
+                    ->icon('heroicon-o-calendar')
+                    ->label('Tahun'),
                 TextEntry::make('start_meter')
-                ->label('Meter Awal'),
+                    ->label('Meter Awal'),
                 TextEntry::make('end_meter')
-                ->label('Meter Akhir'),
+                    ->label('Meter Akhir'),
                 TextEntry::make('created_at')
                     ->label('Ditambahkan Pada')
                     ->dateTime()

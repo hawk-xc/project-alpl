@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\Customers\Schemas;
 
-use Illuminate\Support\Str;
 use Filament\Actions\Action;
-use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class CustomerForm
 {

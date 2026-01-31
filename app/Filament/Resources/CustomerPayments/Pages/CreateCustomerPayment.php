@@ -2,11 +2,10 @@
 
 namespace App\Filament\Resources\CustomerPayments\Pages;
 
-use App\Models\Customer;
+use App\Filament\Resources\CustomerPayments\CustomerPaymentResource;
 use App\Models\CustomerBill;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
-use App\Filament\Resources\CustomerPayments\CustomerPaymentResource;
 
 class CreateCustomerPayment extends CreateRecord
 {

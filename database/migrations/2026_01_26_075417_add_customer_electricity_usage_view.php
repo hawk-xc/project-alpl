@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,7 +10,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::unprepared("
+        if (DB::getDriverName() !== 'mysql') {
+            return;
+        }
+
+        DB::unprepared('
         DROP VIEW IF EXISTS view_customer_electricity_usage;
 
             CREATE VIEW view_customer_electricity_usage AS
@@ -24,7 +26,7 @@ return new class extends Migration
                 (cu.end_meter - cu.start_meter) AS total_usage
             FROM customer_usages cu
             JOIN customers c ON cu.customer_id = c.id;
-        ");
+        ');
     }
 
     /**
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::unprepared("DROP VIEW IF EXISTS view_customer_electricity_usage;");
+        DB::unprepared('DROP VIEW IF EXISTS view_customer_electricity_usage;');
     }
 };

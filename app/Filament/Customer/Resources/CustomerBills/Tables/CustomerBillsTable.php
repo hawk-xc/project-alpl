@@ -2,10 +2,10 @@
 
 namespace App\Filament\Customer\Resources\CustomerBills\Tables;
 
-use Filament\Tables\Table;
-use Filament\Facades\Filament;
 use Filament\Actions\ViewAction;
+use Filament\Facades\Filament;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class CustomerBillsTable
@@ -14,8 +14,7 @@ class CustomerBillsTable
     {
         return $table
             ->modifyQueryUsing(
-                fn(Builder $query) =>
-                $query->where('customer_id', Filament::auth()->id())
+                fn (Builder $query) => $query->where('customer_id', Filament::auth()->id())
             )
             ->columns([
                 TextColumn::make('bill_id')
@@ -39,13 +38,13 @@ class CustomerBillsTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         'paid' => 'success',
                         'pending' => 'warning',
                         'overdue' => 'danger',
                         default => 'gray',
                     })
-                    ->icon(fn(string $state): string => match ($state) {
+                    ->icon(fn (string $state): string => match ($state) {
                         'paid' => 'heroicon-o-check-circle',
                         'pending' => 'heroicon-o-clock',
                         'overdue' => 'heroicon-o-exclamation-circle',

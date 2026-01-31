@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\CustomerUsages\Schemas;
 
-use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
 
 class CustomerUsageForm
 {
@@ -43,7 +43,7 @@ class CustomerUsageForm
             Section::make('Informasi Penggunaan Daya')->schema([
                 TextInput::make('start_meter')->label('Meter Awal')->placeholder('Meter Awal')->required()->numeric(),
                 TextInput::make('end_meter')->label('Meter Akhir')->placeholder('Meter Akhir')->required()->numeric()
-                    ->minValue(fn(Get $get) => $get('start_meter'))
+                    ->minValue(fn (Get $get) => $get('start_meter')),
             ])
                 ->columnSpanFull(),
         ]);
