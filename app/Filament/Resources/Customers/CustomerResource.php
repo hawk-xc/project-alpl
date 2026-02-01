@@ -21,7 +21,7 @@ use UnitEnum;
 
 class CustomerResource extends Resource
 {
-    protected static string $name = 'customers';
+    protected static string $name = 'customer';
 
     /**
      * The model class.
